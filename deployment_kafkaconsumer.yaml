@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: kafkaconsumernew
+  name: kafkaconsumernew
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafkaconsumernew
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kafkaconsumernew
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8098"
+        prometheus.io/path: "/actuator/prometheus"
+    spec:
+      containers:
+      - image: localkafkaconsumernew:1.5
+        name: kafkaconsumernew
+        ports:
+          - containerPort: 8098
+        resources: {}
+        env:
+          - name: SPRING_KAFKA_CONSUMER_BOOTSTRAPSERVERS
+            value: "kafka.confluent.svc.cluster.local:9071"
+          - name: SPRING_KAFKA_CONSUMER_AUTOOFFSETRESET
+            value: "earliest"
+status: {}

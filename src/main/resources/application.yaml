@@ -1,0 +1,10 @@
+server:
+ port: 8080
+spring:
+ kafka:
+  consumer:
+   group-id: my-appnewcons
+   bootstrap-servers: 
+   key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+   value-deserializer: org.apache.kafka.connect.json.JsonDeserializer
+   auto-offset-reset:
